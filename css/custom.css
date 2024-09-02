@@ -24,6 +24,7 @@
 [data-theme="dark"] #page-header::before {
     background: transparent !important;
 }
+
 @font-face {
     /* 为载入的字体取名字(随意) */
     font-family: 'YSHST';
@@ -35,4 +36,10 @@
     font-style: normal;
     /* 定义显示样式 */
     font-display: block;
+}
+
+/* 翻页按钮居中 */
+#pagination {
+    width: 100%;
+    margin: auto;
 }
