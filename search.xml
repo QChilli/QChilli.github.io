@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>测试</title>
+      <link href="/2024/09/01/%E6%9D%82%E8%B0%88/sb/"/>
+      <url>/2024/09/01/%E6%9D%82%E8%B0%88/sb/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> 杂谈 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>STM32基础篇</title>
       <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
       <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
@@ -29,16 +48,16 @@
     
     
     <entry>
-      <title>测试</title>
-      <link href="/2024/09/01/%E6%9D%82%E8%B0%88/sb/"/>
-      <url>/2024/09/01/%E6%9D%82%E8%B0%88/sb/</url>
+      <title>第2篇文章</title>
+      <link href="/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/mm/"/>
+      <url>/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/mm/</url>
       
         <content type="html"><![CDATA[]]></content>
       
       
       <categories>
           
-          <category> 杂谈 </category>
+          <category> 蓝桥杯51 </category>
           
       </categories>
       
@@ -58,25 +77,6 @@
       <categories>
           
           <category> 蓝桥杯32 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>第2篇文章</title>
-      <link href="/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/mm/"/>
-      <url>/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/mm/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
-      <categories>
-          
-          <category> 蓝桥杯51 </category>
           
       </categories>
       
