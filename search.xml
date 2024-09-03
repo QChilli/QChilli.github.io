@@ -5,15 +5,15 @@
     
     <entry>
       <title>测试</title>
-      <link href="/2024/09/01/%E6%9D%82%E8%B0%88/sb/"/>
-      <url>/2024/09/01/%E6%9D%82%E8%B0%88/sb/</url>
+      <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/embed/"/>
+      <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/embed/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="开发板简介"><a href="#开发板简介" class="headerlink" title="开发板简介"></a>开发板简介</h1><h2 id="1-开发板实物图"><a href="#1-开发板实物图" class="headerlink" title="1. 开发板实物图"></a>1. 开发板实物图</h2><p>![开发板实物图](</p><h2 id="2-核心板原理图"><a href="#2-核心板原理图" class="headerlink" title="2. 核心板原理图"></a>2. 核心板原理图</h2><p><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E5%8E%9F%E7%90%86%E5%9B%BE" alt="核心板原理图"></p><h2 id="3-扩展板原理图"><a href="#3-扩展板原理图" class="headerlink" title="3. 扩展板原理图"></a>3. 扩展板原理图</h2><p><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E5%8E%9F%E7%90%86%E5%9B%BE" alt="扩展板原理图"></p><h2 id="4-STM32最小系统"><a href="#4-STM32最小系统" class="headerlink" title="4. STM32最小系统"></a>4. STM32最小系统</h2><p>STM32单片机能工作的最小外围电路就叫最小系统。最小系统通常包括：STM32芯片、电源、时钟、下载调试和复位五部分组成。</p><p><img src="https://xiza3i1x6q4.feishu.cn/space/api/box/stream/download/asynccode/?code=YzU0YzJmZjgxZWI2ZTQxZjAxNzRmM2ExNDgzMTBmZjBfZEE5NkFPcldLUk1odmlYQlQ3MTgyZFJHSThXaG9IczZfVG9rZW46SWtKZmJ1V2xsb0YwZDV4aFczYmMwYmlSbk5RXzE3MjUzMzk2NjM6MTcyNTM0MzI2M19WNA" alt="img"></p><h3 id="1-STM32芯片"><a href="#1-STM32芯片" class="headerlink" title="1. STM32芯片"></a>1. STM32芯片</h3><p>选用的是STM32F103ZET6这款芯片。</p><p><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E8%8A%AF%E7%89%87%E5%9B%BE%E7%89%87" alt="STM32芯片"></p><h3 id="2-电源"><a href="#2-电源" class="headerlink" title="2. 电源"></a>2. 电源</h3><ul><li><p>采用3.3V电源供电。我们电路采用了两路供电：</p><ol><li>一路是USB的Type-C供电，Type-C提供的是5V，使用芯片AMS1117把5V转成3.3V。</li><li>另一路是ST-Link下载器直接提供3.3V供电（下载器内部已经把5V转成了3.3V）。</li></ol><ul><li><p><strong>MCU电源</strong><br><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E7%94%B5%E6%BA%90%E5%9B%BE%E7%89%87" alt="MCU电源"></p></li><li><p><strong>USB供电转3.3V</strong><br><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E7%94%B5%E6%BA%90%E8%BD%AC%E6%8D%A2%E5%9B%BE%E7%89%87" alt="USB供电转3.3V"></p></li><li><p><strong>MCU调试口</strong><br><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E8%B0%83%E8%AF%95%E5%8F%A3%E5%9B%BE%E7%89%87" alt="MCU调试口"></p></li></ul><p>不用额外再接串口模块。</p></li></ul><h3 id="3-时钟"><a href="#3-时钟" class="headerlink" title="3. 时钟"></a>3. 时钟</h3><p>STM32提供了两路外部时钟：外部高速时钟和外部低速时钟。</p><p><img src="/%E9%93%BE%E6%8E%A5%E5%88%B0%E6%97%B6%E9%92%9F%E5%9B%BE%E7%89%87" alt="时钟"></p>]]></content>
       
       
       <categories>
           
-          <category> 杂谈 </category>
+          <category> 嵌入式 </category>
           
       </categories>
       
@@ -24,15 +24,15 @@
     
     <entry>
       <title>测试</title>
-      <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/embed/"/>
-      <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/embed/</url>
+      <link href="/2024/09/01/%E6%9D%82%E8%B0%88/sb/"/>
+      <url>/2024/09/01/%E6%9D%82%E8%B0%88/sb/</url>
       
         <content type="html"><![CDATA[]]></content>
       
       
       <categories>
           
-          <category> 嵌入式 </category>
+          <category> 杂谈 </category>
           
       </categories>
       
