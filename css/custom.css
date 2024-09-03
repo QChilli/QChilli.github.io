@@ -101,3 +101,8 @@
     -ms-transform: scale(0.5);
     -o-transform: scale(0.5);
 }
+
+#cursor {
+    /* 这里改变跟随的底色 */
+    background: rgb(57, 197, 187);
+}
