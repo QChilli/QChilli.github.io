@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title></title>
-      <link href="/2024/09/04/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
-      <url>/2024/09/04/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
+      <title>STM32基础篇</title>
+      <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
+      <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
       
-        <content type="html"><![CDATA[<ol><li><h2 id="STM32最小系统"><a href="#STM32最小系统" class="headerlink" title="STM32最小系统"></a>STM32最小系统</h2></li></ol><p>STM32单片机能工作的最小外围电路就叫<strong>最小系统</strong>。</p><p>最小系统通常包括：<strong>STM32芯片、电源、时钟、下载调试和复位</strong>5部分组成。</p><ol><li>STM32芯片</li></ol><p>选用的是<strong>STM32F103ZET6</strong>这款芯片。</p><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763118.assets" alt="img"></p><ol><li>电源<ol><li>采用3.3V电源供电。我们电路采用了两路供电。</li><li>一路是USB的TypeC供电， TypeC提供的是5V，使用芯片AMS1117把5V转成3.3V。</li><li>另一路是STLink下载器直接提供3.3V供电（下载器内部已经把5V转成了3.3V）。</li></ol></li></ol><ul><li>MCU电源</li></ul><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763101.assets" alt="img"></p><ul><li>USB供电转3.3v</li></ul><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763102.assets" alt="img"></p><ul><li>MCU调试口</li></ul><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763103.assets" alt="img"></p><p>不用额外再接串口模块。</p><ol><li>时钟</li></ol><p>SMT32提供了两路外部时钟：<strong>外部高速时钟和外部低速时钟</strong>。</p><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763104.assets" alt="img"></p><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763105.assets" alt="img"></p><ol><li>复位</li></ol><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763106.assets" alt="img"></p><ol><li>下载调试</li></ol><p><img src="D:\Software\Embedded\Blog\source\_posts\嵌入式\STM32基础篇.assets\-17254466763107.assets" alt="img"></p>]]></content>
+        <content type="html"><![CDATA[<ol><li><h2 id="STM32最小系统"><a href="#STM32最小系统" class="headerlink" title="STM32最小系统"></a>STM32最小系统</h2></li></ol><p>STM32单片机能工作的最小外围电路就叫<strong>最小系统</strong>。</p><p>最小系统通常包括：<strong>STM32芯片、电源、时钟、下载调试和复位</strong>5部分组成。</p><ol><li>STM32芯片</li></ol><p>选用的是<strong>STM32F103ZET6</strong>这款芯片。</p><p><img src="https://xiza3i1x6q4.feishu.cn/space/api/box/stream/download/asynccode/?code=YWVlM2Q1ZDhiOWI1MzEyNDEzOTJmNWMzMGY2YzY5ZThfaDRmSTFQOWZiS1pNMDhHdDJwaEtvZG9NcWlCbGYyemdfVG9rZW46SWtKZmJ1V2xsb0YwZDV4aFczYmMwYmlSbk5RXzE3MjU0NDg3ODU6MTcyNTQ1MjM4NV9WNA" alt="img"></p><ol><li>电源<ol><li>采用3.3V电源供电。我们电路采用了两路供电。</li><li>一路是USB的TypeC供电， TypeC提供的是5V，使用芯片AMS1117把5V转成3.3V。</li><li>另一路是STLink下载器直接提供3.3V供电（下载器内部已经把5V转成了3.3V）。</li></ol></li></ol><ul><li>MCU电源</li></ul><p><img src="https://xiza3i1x6q4.feishu.cn/space/api/box/stream/download/asynccode/?code=MTZiN2YwMGIzY2VmNmM1ZDFlOTFjYzEyZjZjMjY3NGRfMTF5MGpuMk1FS0NZajhtck9QWUg1QW9mODZmclViZWFfVG9rZW46T3hrdGJhQnM1b0dGM1l4WkR1dWNzeVNSbm9lXzE3MjU0NDg3ODU6MTcyNTQ1MjM4NV9WNA" alt="img"></p><ul><li>USB供电转3.3v</li></ul><p><img src="https://xiza3i1x6q4.feishu.cn/space/api/box/stream/download/asynccode/?code=ZGZhMGMxYzgxMDI5NTkzOGJmMGNkZWQ3YzlkZjI2ZWRfWFc2MHdTOW9GNGducWVZR2hzbHZIT3J3NHpiS2hNWVFfVG9rZW46V2lVWmJSQVdhb0pWeEN4dGJ3VWNFeXRUbkFjXzE3MjU0NDg3ODU6MTcyNTQ1MjM4NV9WNA" alt="img"></p>]]></content>
       
       
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> STM32 </tag>
+            
+        </tags>
       
     </entry>
     
