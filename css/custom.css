@@ -14,7 +14,7 @@
     background: transparent !important;
 }
 
-/* 白天模式遮罩透明 */
+/* 白天模式�?罩透明 */
 #footer::before {
     background: transparent !important;
 }
@@ -23,7 +23,7 @@
     background: transparent !important;
 }
 
-/* 夜间模式遮罩透明 */
+/* 夜间模式�?罩透明 */
 [data-theme="dark"] #footer::before {
     background: transparent !important;
 }
@@ -39,7 +39,7 @@
 }
 
 
-/* 一级菜单居中 */
+/* 一级菜单居�? */
 #nav .menus_items {
     position: absolute !important;
     width: fit-content !important;
@@ -47,25 +47,25 @@
     transform: translateX(-50%) !important;
 }
 
-/* 子菜单横向展示 */
+/* 子菜单横向展�? */
 #nav .menus_items .menus_item:hover .menus_item_child {
     display: flex !important;
 }
 
-/* 这里的2是代表导航栏的第2个元素，即有子菜单的元素，可以按自己需求修改 */
+/* 这里�?2�?代表导航栏的�?2�?元素，即有子菜单的元素，�?以按�?己需求修�? */
 .menus_items .menus_item:nth-child(5) .menus_item_child {
     left: -125px;
 }
 
 
 @font-face {
-    /* 为载入的字体取名字(随意) */
+    /* 为载入的字体取名�?(随意) */
     font-family: 'YSHST';
-    /* 字体文件地址(相对或者绝对路径都可以) */
-    src: url(/font/优设好身体.woff2);
+    /* 字体文件地址(相�?�或者绝对路径都�?�?) */
+    src: url(/font/优�?�好�?�?.woff2);
     /* 定义加粗样式(加粗多少) */
     font-weight: normal;
-    /* 定义字体样式(斜体/非斜体) */
+    /* 定义字体样式(斜体/非斜�?) */
     font-style: normal;
     /* 定义显示样式 */
     font-display: block;
@@ -77,7 +77,7 @@
     position: fixed;
     width: 16px;
     height: 16px;
-    /* 这里改变跟随的底色 */
+    /* 这里改变跟随的底�? */
     background: rgb(57, 197, 187);
     border-radius: 8px;
     opacity: 0.25;
@@ -127,7 +127,7 @@
     border: var(--border-style);
 }
 
-/* 文章页、归档页、普通页面 */
+/* 文章页、归档页、普通页�? */
 div#post,
 div#page,
 div#archive {
@@ -137,7 +137,7 @@ div#archive {
     border-radius: 20px;
 }
 
-/* 导航栏 */
+/* 导航�? */
 #page-header.nav-fixed #nav {
     background: rgba(255, 255, 255, 0.75);
     backdrop-filter: var(--backdrop-filter);
@@ -147,7 +147,7 @@ div#archive {
     background: rgba(0, 0, 0, 0.7) !important;
 }
 
-/* 夜间模式遮罩 */
+/* 夜间模式�?�? */
 [data-theme="dark"] #recent-posts>.recent-post-item,
 [data-theme="dark"] #aside-content .card-widget,
 [data-theme="dark"] div#post,
@@ -157,7 +157,7 @@ div#archive {
 }
 
 
-/* 夜间模式页脚页头遮罩透明 */
+/* 夜间模式页脚页头�?罩透明 */
 [data-theme="dark"] #footer::before {
     background: transparent !important;
 }
@@ -166,7 +166,7 @@ div#archive {
     background: transparent !important;
 }
 
-/* 阅读模式 */
+/* 阅�?�模�? */
 .read-mode #aside-content .card-widget {
     background: rgba(158, 204, 171, 0.5) !important;
 }
@@ -175,7 +175,7 @@ div#archive {
     background: rgba(158, 204, 171, 0.5) !important;
 }
 
-/* 夜间模式下的阅读模式 */
+/* 夜间模式下的阅�?�模�? */
 [data-theme="dark"] .read-mode #aside-content .card-widget {
     background: rgba(25, 25, 25, 0.9) !important;
     color: #ffffff;
@@ -184,4 +184,113 @@ div#archive {
 [data-theme="dark"] .read-mode div#post {
     background: rgba(25, 25, 25, 0.9) !important;
     color: #ffffff;
+}
+
+/* ҹ��ģʽ�˵��������� */
+[data-theme="dark"] #nav .site-page,
+[data-theme="dark"] #nav .menus_items .menus_item .menus_item_child li a {
+    text-shadow: 0 0 2px rgb(179, 71, 241) !important;
+}
+
+/* �ֻ������� */
+[data-theme="dark"] #sidebar #sidebar-menus .menus_items .site-page {
+    text-shadow: 0 0 2px rgb(179, 71, 241) !important;
+}
+
+/* ��˸�䶯��ɫ�������� */
+#site-name,
+#site-title,
+#site-subtitle,
+#post-info,
+.author-info__name,
+.author-info__description {
+    transition: text-shadow 1s linear !important;
+}
+
+
+/* ���������ǹ�  */
+#universe {
+    display: block;
+    position: fixed;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    /* ����ǵ��ö������ȼ��ģ�-1������ҳ���棬�������棬�����Ƽ����� */
+    z-index: -1;
+}
+
+
+/* �����������Ϣ��Ƭ��̬����ɫ */
+#aside-content>.card-widget.card-info {
+    background: linear-gradient(-45deg,
+            #e8d8b9,
+            #eccec5,
+            #a3e9eb,
+            #bdbdf0,
+            #eec1ea);
+    box-shadow: 0 0 5px rgb(66, 68, 68);
+    position: relative;
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 10s ease infinite;
+    -moz-animation: Gradient 10s ease infinite;
+    animation: Gradient 10s ease infinite !important;
+}
+
+@-webkit-keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@-moz-keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* ��ҹģʽ���� */
+[data-theme="dark"] #aside-content>.card-widget.card-info {
+    background: #191919ee;
+}
+
+/* ������ϢFollow me��ť */
+#aside-content>.card-widget.card-info>#card-info-btn {
+    background-color: #3eb8be;
+    border-radius: 8px;
 }
