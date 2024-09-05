@@ -8,7 +8,7 @@
       <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/"/>
       <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/STM32%E5%9F%BA%E7%A1%80%E7%AF%87/</url>
       
-        <content type="html"><![CDATA[<ol><li><h2 id="STM32最小系统"><a href="#STM32最小系统" class="headerlink" title="STM32最小系统"></a>STM32最小系统</h2></li></ol><p>STM32单片机能工作的最小外围电路就叫<strong>最小系统</strong>。</p><p>最小系统通常包括：<strong>STM32芯片、电源、时钟、下载调试和复位</strong>5部分组成。</p><ol><li>STM32芯片</li></ol><p>选用的是<strong>STM32F103ZET6</strong>这款芯片。</p><p><img src="D:\Software\Documents\Pic_Bed\Pic_Bed\Img\-17255136389708.png" alt="img"></p><ol><li>电源<ol><li>采用3.3V电源供电。我们电路采用了两路供电。</li><li>一路是USB的TypeC供电， TypeC提供的是5V，使用芯片AMS1117把5V转成3.3V。</li><li>另一路是STLink下载器直接提供3.3V供电（下载器内部已经把5V转成了3.3V）。</li></ol></li></ol><ul><li>MCU电源</li></ul><p><img src="D:\Software\Documents\Pic_Bed\Pic_Bed\Img\-17255136389707.png" alt="img"></p>]]></content>
+        <content type="html"><![CDATA[<ol><li><h2 id="STM32最小系统"><a href="#STM32最小系统" class="headerlink" title="STM32最小系统"></a>STM32最小系统</h2></li></ol><p>STM32单片机能工作的最小外围电路就叫<strong>最小系统</strong>。</p><p>最小系统通常包括：<strong>STM32芯片、电源、时钟、下载调试和复位</strong>5部分组成。</p><ol><li>STM32芯片</li></ol><p>选用的是<strong>STM32F103ZET6</strong>这款芯片。</p><p><img src="../../../../../Documents/Pic_Bed/Pic_Bed/Img/-17255162336618.png" alt="img"></p><ol><li>电源<ol><li>采用3.3V电源供电。我们电路采用了两路供电。</li><li>一路是USB的TypeC供电， TypeC提供的是5V，使用芯片AMS1117把5V转成3.3V。</li><li>另一路是STLink下载器直接提供3.3V供电（下载器内部已经把5V转成了3.3V）。</li></ol></li></ol><ul><li>MCU电源</li></ul><p><img src="../../../../../Documents/Pic_Bed/Pic_Bed/Img/-17255162336617.png" alt="img"></p>]]></content>
       
       
       <categories>
