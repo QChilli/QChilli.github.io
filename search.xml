@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>LVGL移植</title>
+      <link href="/2025/02/03/%E5%B5%8C%E5%85%A5%E5%BC%8F/LVGL%E7%A7%BB%E6%A4%8D/"/>
+      <url>/2025/02/03/%E5%B5%8C%E5%85%A5%E5%BC%8F/LVGL%E7%A7%BB%E6%A4%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-硬件需求"><a href="#1-硬件需求" class="headerlink" title="1.硬件需求"></a>1.硬件需求</h1><blockquote><p><strong>主频 &gt; 16Mhz</strong></p><p><strong>Flash/ROM &gt; 64kb</strong></p><p><strong>RAM &gt; 8kb</strong></p></blockquote><h1 id="2-移植"><a href="#2-移植" class="headerlink" title="2.移植"></a>2.移植</h1><h2 id="1-源代码剪裁"><a href="#1-源代码剪裁" class="headerlink" title="1.源代码剪裁"></a>1.源代码剪裁</h2><ul><li>保留下图文件，更改<code>lv_conf_template.h</code>文件名为<code>lv_conf.h</code>：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021339458.png" alt="微信截图_20250202133628"></p><ul><li>其中，<code>example</code>文件夹里只保留<code>porting</code>文件夹：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021341946.png" alt="微信截图_20250202134118"></p><ul><li>打开<code>lv_conf.h</code>文件，条件编译改为1，启用相关代码：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021344179.png" alt="微信截图_20250202134453"></p><h2 id="2-添加工程文件夹"><a href="#2-添加工程文件夹" class="headerlink" title="2.添加工程文件夹"></a>2.添加工程文件夹</h2><p>打开工程并添加<code>midware</code>文件夹；在此文件夹里面添加<code>lvgl</code>文件夹；将源代码除<code>demos</code>的四个文件，放到<code>midware\lvgl</code>文件夹里；源代码<code>demos</code>文件夹，放到<code>midware</code>文件夹里。</p><p>在 <strong>地址栏</strong>输入<code>cmd</code>此时会跳转<code>cmd.exe</code>，然后输入<code>tree</code>便可查看文件分布图：</p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021352936.png" alt="微信截图_20250202115124"></p><h3 id="1-代码分组"><a href="#1-代码分组" class="headerlink" title="1.代码分组"></a>1.代码分组</h3><blockquote><ul><li><strong><code>midware\lvgl\examples\porting</code>:</strong> <code>porting</code>文件夹下的<code>lv_port_disp_template.c</code>和<code>lv_port_indev_template.c</code>。</li><li><code>midware\lvgl\src\core</code><strong>:</strong> <code>core</code>文件夹下的全部.c文件。</li><li><code>midware\lvgl\src\draw</code><strong>:</strong> <code>draw</code>和<code>draw/sw</code>文件夹下的全部.c文件。</li><li><code>midware\lvgl\src\gpu</code><strong>:</strong> <code>draw/stm32_dma2d</code>和<code>draw/sdl</code>文件夹下的全部.c文件。</li><li><code>midware\lvgl\src\extra</code><strong>:</strong> <code>extra</code>文件夹下全部c文件（包括所有子文件夹的全部c文件）。</li><li><code>midware\lvgl\src\font</code><strong>:</strong> <code>font</code>文件夹下全部c文件。</li><li><code>midware\lvgl\src\hal</code><strong>:</strong> <code>hal</code>文件夹下全部c文件。</li><li><code>midware\lvgl\src\misc</code><strong>:</strong> <code>misc</code>文件夹下全部c文件。</li><li><code>midware\lvgl\src\widgets</code><strong>:</strong> <code>widgets</code>文件夹下全部c文件。</li></ul></blockquote><h3 id="2-头文件路径"><a href="#2-头文件路径" class="headerlink" title="2.头文件路径"></a>2.头文件路径</h3><blockquote><ul><li><code>\midware</code>：必须添加，否则<code>#include &quot;lvgl/lvgl.h&quot;</code>无法跳转，或直接改成<code>lvgl.h</code>。</li><li><code>\midware\lvgl</code></li><li><code>\midware\lvgl\src</code></li><li><code>\midware\lvgl\examples\porting</code></li></ul></blockquote><p>最后，切记开启C99模式！</p><h2 id="3-代码修改"><a href="#3-代码修改" class="headerlink" title="3.代码修改"></a>3.代码修改</h2><h3 id="1-显示demo"><a href="#1-显示demo" class="headerlink" title="1.显示demo"></a>1.显示demo</h3><h4 id="1-屏幕输出"><a href="#1-屏幕输出" class="headerlink" title="1.屏幕输出"></a>1.屏幕输出</h4><ul><li><code>lv_port_disp_template.c</code>和<code>lv_port_disp_template.h</code>条件编译由0改为<strong>1</strong>：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021420188.png" alt="微信截图_20250202141927"></p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021420529.png" alt="微信截图_20250202141949"></p><ul><li><code>lv_port_disp_template.c</code>添加<code>LCD_Init()</code>和<code>lcd_init.h</code>：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021418073.png" alt="微信截图_20250202141829"></p><ul><li><code>lcd_init.h</code>设置横屏模式：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021423823.png" alt="微信截图_20250202142252"></p><ul><li><code>lv_port_disp_template.c</code>选择图形缓冲模式：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021423432.png" alt="微信截图_20250202142354"></p><ul><li><code>lv_port_disp_template.c</code>配置<code>lvgl</code>屏幕分辨率：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021426187.png" alt="微信截图_20250202142559"></p><ul><li><code>lv_port_disp_template.c</code>修改配置显示函数：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021554382.png" alt="微信截图_20250202155406"></p><p>LCD_Color_Fill的写法看此文章：</p><p><a href="https://blog.csdn.net/zbz159357/article/details/125311469?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=f103%20%20lvgl%20%E4%B8%AD%E6%99%AF%E5%9B%AD3.5&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-125311469.142">https://blog.csdn.net/zbz159357/article/details/125311469?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=f103%20%20lvgl%20%E4%B8%AD%E6%99%AF%E5%9B%AD3.5&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-1-125311469.142</a></p><h4 id="2-时基配置"><a href="#2-时基配置" class="headerlink" title="2.时基配置"></a>2.时基配置</h4><ul><li>初始化定时器<code>TIM6</code>并使能中断：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021558854.png" alt="微信截图_20250202155804"></p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021558317.png" alt="微信截图_20250202155812"></p><ul><li>增加 LVGL 系统的“tick”计时器：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021606765.png" alt="微信截图_20250202160621"></p><ul><li>主函数使能TIM6计数器和更新中断标志位：<code>HAL_TIM_Base_Start_IT(&amp;htim6);</code>。</li></ul><h4 id="3-demo测试"><a href="#3-demo测试" class="headerlink" title="3.demo测试"></a>3.demo测试</h4><ul><li><code>main.h</code>包含<code>lvgl.h</code>和l<code>v_port_disp_template.h</code>：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021620849.png" alt="微信截图_20250202161946"></p><ul><li><p>主函数初始化LVGL代码：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lv_init();</span><br><span class="line"></span><br><span class="line">lv_port_disp_init();</span><br></pre></td></tr></table></figure></li><li><p><code>while(1)</code>中每隔5ms调用一次：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line">    lv_timer_handler();</span><br><span class="line">    HAL_Delay(<span class="number">5</span>);</span><br><span class="line">  <span class="comment">/* USER CODE END WHILE */</span></span><br><span class="line">  </span><br><span class="line">  <span class="comment">/* USER CODE BEGIN 3 */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>测试demo移植：</p><ul><li><p>添加头文件路径：</p><blockquote><p><code>midware\demos</code></p><p><code>midware\demos\stress</code></p></blockquote></li><li><p>修改<code>lv_conf.h</code>头文件，将<code>#define LV_USE_DEMO_STRESS</code>改为1：</p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021700717.png" alt="微信截图_20250202165835"></p></li><li><p>新建代码组：<code>midware\demo</code>并添加<code>lv_demo_stress.c</code>到工程。</p></li><li><p>main.c添加头文件：<code>&quot;lv_demo_stress.h&quot;</code>。</p></li><li><p>main.c调用相关API接口：</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lv_demo_stress();</span><br></pre></td></tr></table></figure></li></ul></li><li><p>修改栈大小：</p></li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502021706422.png" alt="微信截图_20250202163811"></p><p>如果遇到LVGL卡死的情况，有极大的概率是由于栈空间不足所导致。</p><h3 id="2-触摸demo"><a href="#2-触摸demo" class="headerlink" title="2.触摸demo"></a>2.触摸demo</h3><h4 id="1-触摸输入"><a href="#1-触摸输入" class="headerlink" title="1.触摸输入"></a>1.触摸输入</h4><ul><li><code>lv_port_index_template.c</code>和<code>lv_port_index_template.h</code>条件编译由0改为<strong>1</strong>，并且只保留<code>touchpad</code>相关的函数：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031143728.png" alt="QQ20250203-114246"></p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031144989.png" alt="QQ20250203-114137"></p><ul><li>补充相关触摸函数：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031149656.png" alt="微信截图_20250203114718"></p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031149336.png" alt="微信截图_20250203114748"></p><h4 id="2-demo测试"><a href="#2-demo测试" class="headerlink" title="2.demo测试"></a>2.demo测试</h4><ul><li>添加头文件路径：</li></ul><blockquote><p><code>midware\demos</code></p><p><code>midware\demos\widgets</code></p></blockquote><ul><li>修改<code>lv_conf.h</code>头文件，将<code>#define LV_USE_DEMO_WIDGETS</code>改为1：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031156593.png" alt="微信截图_20250203114611"></p><ul><li>代码组<code>midware\demo</code>添加c文件：</li></ul><blockquote><p><code>lv_demo_stress.c</code></p><p><code>assets:</code></p><p>​    <code>img_clothes.c</code></p><p>​    <code>img_demo_widgets_avatar.c</code></p><p>​    <code>img_lvgl_logo.c</code></p></blockquote><ul><li><code>main.h</code>添加相关头文件：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031213460.png" alt="微信截图_20250203120829"></p><ul><li><code>main.c</code>调用相关API接口：</li></ul><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lv_port_indev_init();</span><br><span class="line"></span><br><span class="line">lv_demo_widgets();</span><br></pre></td></tr></table></figure><h3 id="3-显示帧率"><a href="#3-显示帧率" class="headerlink" title="3.显示帧率"></a>3.显示帧率</h3><ul><li>修改<code>lv_conf.h</code>头文件，将<code>#define LV_USE_PERF_MONITOR</code>和<code>LV_USE_MEM_MONITOR</code>改为1：</li></ul><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202502031219459.png" alt="微信截图_20250203121858"></p><h3 id="4-优化帧率"><a href="#4-优化帧率" class="headerlink" title="4.优化帧率"></a>4.优化帧率</h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> LVGL移植 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>CAN总线</title>
       <link href="/2025/01/19/%E5%B5%8C%E5%85%A5%E5%BC%8F/CAN%E6%80%BB%E7%BA%BF/"/>
       <url>/2025/01/19/%E5%B5%8C%E5%85%A5%E5%BC%8F/CAN%E6%80%BB%E7%BA%BF/</url>
@@ -32,6 +57,19 @@
       <title></title>
       <link href="/2025/01/11/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E6%96%B9%E6%B3%95/"/>
       <url>/2025/01/11/%E5%B5%8C%E5%85%A5%E5%BC%8F/%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>是的，<strong>对于长时间不用的 STM32 知识，复习笔记通常是足够的</strong>，尤其是你之前学过并有一定理解的内容，不需要从头再敲一遍代码。如果能够通过看笔记快速回忆起原理和应用方式，并能够在项目中正确使用，就已经达到了实际需求。</p><hr><h3 id="几点具体建议"><a href="#几点具体建议" class="headerlink" title="几点具体建议"></a><strong>几点具体建议</strong></h3><h4 id="1-看笔记复习核心概念"><a href="#1-看笔记复习核心概念" class="headerlink" title="1. 看笔记复习核心概念"></a>1. <strong>看笔记复习核心概念</strong></h4><ul><li><p>笔记是复习的高效方式，尤其是整理得清晰的笔记。</p></li><li><p>重点内容：</p><ul><li>常用外设的初始化流程（如 GPIO、USART、I2C、SPI、ADC 等）。</li><li>HAL 库或寄存器操作的关键 API 或配置方法。</li><li>STM32CubeMX 的使用步骤（如引脚配置和时钟设置）。</li><li>常见问题和解决方法（例如某些外设的配置注意事项）。</li></ul></li></ul><h4 id="2-以项目需求为导向"><a href="#2-以项目需求为导向" class="headerlink" title="2. 以项目需求为导向"></a>2. <strong>以项目需求为导向</strong></h4><ul><li>如果你要做的项目中用到某个外设（比如串口通信），直接从项目需求出发，看对应的笔记和代码例子：<ul><li>如果笔记清晰并包含相关配置和代码，复用这些知识即可。</li><li>如果笔记中没有记录详细代码，但记下了原理，结合 STM32CubeMX 和 HAL 库的函数手册查找 API，快速应用即可。</li></ul></li></ul><h4 id="3-避免从零开始"><a href="#3-避免从零开始" class="headerlink" title="3. 避免从零开始"></a>3. <strong>避免从零开始</strong></h4><ul><li>如果之前已经写过类似的代码，没必要再从 0 到 1 敲一遍（除非是核心知识完全遗忘）。</li><li>比如，串口初始化和发送数据，你只需要理解 <strong>初始化时的配置逻辑</strong> 和 <strong>API 的用法</strong>，完全没必要再重复敲基础代码。</li></ul><h4 id="4-实践项目时再深入"><a href="#4-实践项目时再深入" class="headerlink" title="4. 实践项目时再深入"></a>4. <strong>实践项目时再深入</strong></h4><ul><li>如果有项目需求，优先复用笔记中的知识。遇到问题再针对性深入研究，不用全面复习所有外设。</li><li>比如做一个数据采集项目，需要用到 ADC 和 DMA，只需要重点复习这两个模块，而 GPIO 或串口可以根据需求快速回顾或直接复用以前的代码。</li></ul><hr><h3 id="为什么不用从-0-到-1-重头敲？"><a href="#为什么不用从-0-到-1-重头敲？" class="headerlink" title="为什么不用从 0 到 1 重头敲？"></a><strong>为什么不用从 0 到 1 重头敲？</strong></h3><ol><li><strong>已有基础</strong>：<ul><li>你之前已经学过 STM32，只是需要复习。看笔记能够快速回忆起核心知识点和方法，重头开始会浪费时间。</li></ul></li><li><strong>复用代码更高效</strong>：<ul><li>实际项目中，STM32 开发很多时候都是基于以前的代码模板或已有的库实现。如果你的笔记和代码记录清晰，可以直接复用。</li></ul></li><li><strong>以需求为中心</strong>：<ul><li>长时间不用的知识只需要根据项目需求进行针对性复习，不用复习所有内容。比如，当前项目只需要用 GPIO 和定时器，你就只复习这两部分即可。</li></ul></li><li><strong>重点是理解和应用</strong>：<ul><li>项目开发中，重要的是理解 STM32 的外设配置原理和应用逻辑，而不是重新熟悉所有代码细节。</li></ul></li></ol><hr><h3 id="但以下情况需要敲代码"><a href="#但以下情况需要敲代码" class="headerlink" title="但以下情况需要敲代码"></a><strong>但以下情况需要敲代码</strong></h3><ol><li><strong>遗忘严重</strong>： 如果长时间不用，已经忘记了某些外设的基本原理或配置方法（比如串口的波特率设置、时钟配置等），可以尝试简单敲一下代码来巩固记忆。</li><li><strong>复杂模块或新功能</strong>： 如果项目中需要用到以前没有学过或很复杂的功能（如 DMA、USB、CAN 总线等），建议从头掌握，熟悉配置方法并实际敲代码。</li><li><strong>提高熟练度</strong>： 如果觉得自己对某些外设的操作还不够熟练，比如 STM32 的中断处理或 HAL 库 API 的应用，可以通过敲代码来强化记忆。</li></ol><hr><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul><li>对于长时间不用的 STM32 知识，看笔记回顾原理和流程通常就足够，没必要从头敲代码。</li><li>如果能通过笔记快速理解并应用到项目中，完全可以直接复用笔记和以前的代码。</li><li>只有在遗忘严重或项目需要复杂功能时，才需要重新动手敲代码。最终的目标是以需求为中心，能高效完成项目为主。</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2025/01/11/%E7%9F%A5%E8%AF%86%E7%82%B9/%E6%96%B9%E6%B3%95/"/>
+      <url>/2025/01/11/%E7%9F%A5%E8%AF%86%E7%82%B9/%E6%96%B9%E6%B3%95/</url>
       
         <content type="html"><![CDATA[<p>是的，<strong>对于长时间不用的 STM32 知识，复习笔记通常是足够的</strong>，尤其是你之前学过并有一定理解的内容，不需要从头再敲一遍代码。如果能够通过看笔记快速回忆起原理和应用方式，并能够在项目中正确使用，就已经达到了实际需求。</p><hr><h3 id="几点具体建议"><a href="#几点具体建议" class="headerlink" title="几点具体建议"></a><strong>几点具体建议</strong></h3><h4 id="1-看笔记复习核心概念"><a href="#1-看笔记复习核心概念" class="headerlink" title="1. 看笔记复习核心概念"></a>1. <strong>看笔记复习核心概念</strong></h4><ul><li><p>笔记是复习的高效方式，尤其是整理得清晰的笔记。</p></li><li><p>重点内容：</p><ul><li>常用外设的初始化流程（如 GPIO、USART、I2C、SPI、ADC 等）。</li><li>HAL 库或寄存器操作的关键 API 或配置方法。</li><li>STM32CubeMX 的使用步骤（如引脚配置和时钟设置）。</li><li>常见问题和解决方法（例如某些外设的配置注意事项）。</li></ul></li></ul><h4 id="2-以项目需求为导向"><a href="#2-以项目需求为导向" class="headerlink" title="2. 以项目需求为导向"></a>2. <strong>以项目需求为导向</strong></h4><ul><li>如果你要做的项目中用到某个外设（比如串口通信），直接从项目需求出发，看对应的笔记和代码例子：<ul><li>如果笔记清晰并包含相关配置和代码，复用这些知识即可。</li><li>如果笔记中没有记录详细代码，但记下了原理，结合 STM32CubeMX 和 HAL 库的函数手册查找 API，快速应用即可。</li></ul></li></ul><h4 id="3-避免从零开始"><a href="#3-避免从零开始" class="headerlink" title="3. 避免从零开始"></a>3. <strong>避免从零开始</strong></h4><ul><li>如果之前已经写过类似的代码，没必要再从 0 到 1 敲一遍（除非是核心知识完全遗忘）。</li><li>比如，串口初始化和发送数据，你只需要理解 <strong>初始化时的配置逻辑</strong> 和 <strong>API 的用法</strong>，完全没必要再重复敲基础代码。</li></ul><h4 id="4-实践项目时再深入"><a href="#4-实践项目时再深入" class="headerlink" title="4. 实践项目时再深入"></a>4. <strong>实践项目时再深入</strong></h4><ul><li>如果有项目需求，优先复用笔记中的知识。遇到问题再针对性深入研究，不用全面复习所有外设。</li><li>比如做一个数据采集项目，需要用到 ADC 和 DMA，只需要重点复习这两个模块，而 GPIO 或串口可以根据需求快速回顾或直接复用以前的代码。</li></ul><hr><h3 id="为什么不用从-0-到-1-重头敲？"><a href="#为什么不用从-0-到-1-重头敲？" class="headerlink" title="为什么不用从 0 到 1 重头敲？"></a><strong>为什么不用从 0 到 1 重头敲？</strong></h3><ol><li><strong>已有基础</strong>：<ul><li>你之前已经学过 STM32，只是需要复习。看笔记能够快速回忆起核心知识点和方法，重头开始会浪费时间。</li></ul></li><li><strong>复用代码更高效</strong>：<ul><li>实际项目中，STM32 开发很多时候都是基于以前的代码模板或已有的库实现。如果你的笔记和代码记录清晰，可以直接复用。</li></ul></li><li><strong>以需求为中心</strong>：<ul><li>长时间不用的知识只需要根据项目需求进行针对性复习，不用复习所有内容。比如，当前项目只需要用 GPIO 和定时器，你就只复习这两部分即可。</li></ul></li><li><strong>重点是理解和应用</strong>：<ul><li>项目开发中，重要的是理解 STM32 的外设配置原理和应用逻辑，而不是重新熟悉所有代码细节。</li></ul></li></ol><hr><h3 id="但以下情况需要敲代码"><a href="#但以下情况需要敲代码" class="headerlink" title="但以下情况需要敲代码"></a><strong>但以下情况需要敲代码</strong></h3><ol><li><strong>遗忘严重</strong>： 如果长时间不用，已经忘记了某些外设的基本原理或配置方法（比如串口的波特率设置、时钟配置等），可以尝试简单敲一下代码来巩固记忆。</li><li><strong>复杂模块或新功能</strong>： 如果项目中需要用到以前没有学过或很复杂的功能（如 DMA、USB、CAN 总线等），建议从头掌握，熟悉配置方法并实际敲代码。</li><li><strong>提高熟练度</strong>： 如果觉得自己对某些外设的操作还不够熟练，比如 STM32 的中断处理或 HAL 库 API 的应用，可以通过敲代码来强化记忆。</li></ol><hr><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h3><ul><li>对于长时间不用的 STM32 知识，看笔记回顾原理和流程通常就足够，没必要从头敲代码。</li><li>如果能通过笔记快速理解并应用到项目中，完全可以直接复用笔记和以前的代码。</li><li>只有在遗忘严重或项目需要复杂功能时，才需要重新动手敲代码。最终的目标是以需求为中心，能高效完成项目为主。</li></ul>]]></content>
       
@@ -143,6 +181,31 @@
     
     
     <entry>
+      <title>IAP</title>
+      <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/IAP/"/>
+      <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/IAP/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-IAP"><a href="#1-IAP" class="headerlink" title="1.IAP"></a>1.IAP</h1><p>IAP<strong>（In-Application Programming）</strong>，中文名为“应用内编程”，是指在系统运行时，应用程序可以通过特定的机制来进行固件更新或更改应用程序的一部分。</p><blockquote><p>系统框图如下：</p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202501182053364.png" alt="image-20250118205320326"></p><p>IAP的实现通常包括以下几个步骤：</p><ol><li>在应用程序中实现一段代码，允许通过特定的接口接收新固件。</li><li>在IAP过程中，设备会暂时停止主应用的运行，进入更新模式。</li><li>更新完毕后，重新启动系统，使得新固件生效。</li></ol></blockquote><h2 id="1-内存分配"><a href="#1-内存分配" class="headerlink" title="1.内存分配"></a>1.内存分配</h2><blockquote><p>Flash内部分配框图如下：</p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202501182118453.png" alt="image-20250118211841395"></p><ul><li><strong>BootLoader区</strong>（24KB）：这部分存储引导程序代码，通常用于<strong>启动系统和加载主应用程序</strong>。引导程序通常在设备复位时首先执行。</li><li><strong>Param区</strong>（8KB）：这一部分用于存储一些参数数据，例如设备配置、序列号、版本信息等。这是一个小区域，通常用于存储和应用程序相关的配置信息。</li><li><strong>Application区</strong>（480KB）：这部分用于存储主要的应用程序代码，它占用了Flash的绝大部分空间。这是用户开发的应用程序所在区域。</li></ul><p><strong>Param区</strong>尽管被单独划分出来用于存储参数和配置数据，但它并不是独立于BootLoader区的。在很多IAP（In-Application Programming）方案中，<strong>Param区</strong>存储与固件更新、启动状态相关的参数信息，比如升级标志位、设备配置、版本信息等。</p><p>因此，<strong>Param区也可视为BootLoader区的一部分</strong>，它在系统重启后可能会被BootLoader读取并决定是否需要进行固件更新（对应上图）。</p></blockquote><h2 id="2-内部实现"><a href="#2-内部实现" class="headerlink" title="2.内部实现"></a>2.内部实现</h2><blockquote><p>单片机上电时，首先从<code>0x08000000</code>地址处执行BootLoader。BootLoader初始化硬件并检查OTA信息中的升级标志位。如果标志位为0，表示无需固件更新，系统将直接跳转并执行Application区中的原有程序。</p><p>在应用程序运行时，如果收到串口一发送的固件更新指令，应用程序将把OTA标志位设置为1，表示准备进行固件更新。接着，应用程序重启单片机。重启后，BootLoader再次启动，检查OTA标志位。此时标志位为1，BootLoader将等待通过串口二接收新的固件文件进行更新。固件更新完成后，BootLoader会清除升级标志位（置为0），并跳转回Application区执行更新后代码。</p></blockquote><h2 id="3-引导加载程序"><a href="#3-引导加载程序" class="headerlink" title="3.引导加载程序"></a>3.引导加载程序</h2><p>即<code>Bootloader</code>，嵌入式系统的核心部分之一，负责在设备上电或重启时初始化硬件并加载操作系统或应用程序。<strong>Bootloader的作用非常重要，它是系统启动过程中的第一段代码，负责将设备引导到正确的运行状态。</strong></p><p>IAP技术通常依赖于一个预置的Bootloader程序，该程序负责在设备启动时初始化硬件、设置内存映射，并在接收到更新指令时加载新的固件到Flash存储器中。更新过程中，Bootloader通过特定的通信接口接收新固件数据，验证其完整性和正确性后，执行Flash操作（如擦除旧固件、写入新固件）以完成更新。</p><ul><li><strong>Bootloader</strong>：负责设备的启动和加载，检查是否有新的固件或者配置。</li><li><strong>IAP</strong>：在应用程序中运行，允许通过应用内的机制进行固件更新。</li></ul><p>IAP通常是嵌入式设备中用于应用程序更新的技术，而Bootloader则是设备启动时必须运行的程序，两者结合在一起，可以使设备实现高效、灵活的固件更新和恢复机制。</p><h2 id="4-代码思路"><a href="#4-代码思路" class="headerlink" title="4.代码思路"></a>4.代码思路</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 嵌入式 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> STM32 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>HAL源码解析</title>
       <link href="/2024/09/01/%E7%9F%A5%E8%AF%86%E7%82%B9/HAL%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/"/>
       <url>/2024/09/01/%E7%9F%A5%E8%AF%86%E7%82%B9/HAL%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/</url>
@@ -212,34 +275,9 @@
     
     
     <entry>
-      <title>IAP</title>
-      <link href="/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/IAP/"/>
-      <url>/2024/09/01/%E5%B5%8C%E5%85%A5%E5%BC%8F/IAP/</url>
-      
-        <content type="html"><![CDATA[<h1 id="1-IAP"><a href="#1-IAP" class="headerlink" title="1.IAP"></a>1.IAP</h1><p>IAP<strong>（In-Application Programming）</strong>，中文名为“应用内编程”，是指在系统运行时，应用程序可以通过特定的机制来进行固件更新或更改应用程序的一部分。</p><blockquote><p>系统框图如下：</p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202501182053364.png" alt="image-20250118205320326"></p><p>IAP的实现通常包括以下几个步骤：</p><ol><li>在应用程序中实现一段代码，允许通过特定的接口接收新固件。</li><li>在IAP过程中，设备会暂时停止主应用的运行，进入更新模式。</li><li>更新完毕后，重新启动系统，使得新固件生效。</li></ol></blockquote><h2 id="1-内存分配"><a href="#1-内存分配" class="headerlink" title="1.内存分配"></a>1.内存分配</h2><blockquote><p>Flash内部分配框图如下：</p><p><img src="https://cdn.jsdelivr.net/gh/QChilli/Picture/202501182118453.png" alt="image-20250118211841395"></p><ul><li><strong>BootLoader区</strong>（24KB）：这部分存储引导程序代码，通常用于<strong>启动系统和加载主应用程序</strong>。引导程序通常在设备复位时首先执行。</li><li><strong>Param区</strong>（8KB）：这一部分用于存储一些参数数据，例如设备配置、序列号、版本信息等。这是一个小区域，通常用于存储和应用程序相关的配置信息。</li><li><strong>Application区</strong>（480KB）：这部分用于存储主要的应用程序代码，它占用了Flash的绝大部分空间。这是用户开发的应用程序所在区域。</li></ul><p><strong>Param区</strong>尽管被单独划分出来用于存储参数和配置数据，但它并不是独立于BootLoader区的。在很多IAP（In-Application Programming）方案中，<strong>Param区</strong>存储与固件更新、启动状态相关的参数信息，比如升级标志位、设备配置、版本信息等。</p><p>因此，<strong>Param区也可视为BootLoader区的一部分</strong>，它在系统重启后可能会被BootLoader读取并决定是否需要进行固件更新（对应上图）。</p></blockquote><h2 id="2-内部实现"><a href="#2-内部实现" class="headerlink" title="2.内部实现"></a>2.内部实现</h2><blockquote><p>单片机上电时，首先从<code>0x08000000</code>地址处执行BootLoader。BootLoader初始化硬件并检查OTA信息中的升级标志位。如果标志位为0，表示无需固件更新，系统将直接跳转并执行Application区中的原有程序。</p><p>在应用程序运行时，如果收到串口一发送的固件更新指令，应用程序将把OTA标志位设置为1，表示准备进行固件更新。接着，应用程序重启单片机。重启后，BootLoader再次启动，检查OTA标志位。此时标志位为1，BootLoader将等待通过串口二接收新的固件文件进行更新。固件更新完成后，BootLoader会清除升级标志位（置为0），并跳转回Application区执行更新后代码。</p></blockquote><h2 id="3-引导加载程序"><a href="#3-引导加载程序" class="headerlink" title="3.引导加载程序"></a>3.引导加载程序</h2><p>即<code>Bootloader</code>，嵌入式系统的核心部分之一，负责在设备上电或重启时初始化硬件并加载操作系统或应用程序。<strong>Bootloader的作用非常重要，它是系统启动过程中的第一段代码，负责将设备引导到正确的运行状态。</strong></p><p>IAP技术通常依赖于一个预置的Bootloader程序，该程序负责在设备启动时初始化硬件、设置内存映射，并在接收到更新指令时加载新的固件到Flash存储器中。更新过程中，Bootloader通过特定的通信接口接收新固件数据，验证其完整性和正确性后，执行Flash操作（如擦除旧固件、写入新固件）以完成更新。</p><ul><li><strong>Bootloader</strong>：负责设备的启动和加载，检查是否有新的固件或者配置。</li><li><strong>IAP</strong>：在应用程序中运行，允许通过应用内的机制进行固件更新。</li></ul><p>IAP通常是嵌入式设备中用于应用程序更新的技术，而Bootloader则是设备启动时必须运行的程序，两者结合在一起，可以使设备实现高效、灵活的固件更新和恢复机制。</p><h2 id="4-代码思路"><a href="#4-代码思路" class="headerlink" title="4.代码思路"></a>4.代码思路</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 嵌入式 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> STM32 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>MCU赛题</title>
-      <link href="/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E7%9C%81%E8%B5%9B/"/>
-      <url>/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E7%9C%81%E8%B5%9B/</url>
+      <title>MCU模板</title>
+      <link href="/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E5%A4%A7%E6%A8%A1%E6%9D%BF/"/>
+      <url>/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E5%A4%A7%E6%A8%A1%E6%9D%BF/</url>
       
         <content type="html"><![CDATA[]]></content>
       
@@ -256,9 +294,9 @@
     
     
     <entry>
-      <title>MCU模板</title>
-      <link href="/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E5%A4%A7%E6%A8%A1%E6%9D%BF/"/>
-      <url>/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E5%A4%A7%E6%A8%A1%E6%9D%BF/</url>
+      <title>MCU赛题</title>
+      <link href="/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E7%9C%81%E8%B5%9B/"/>
+      <url>/2024/09/01/%E8%93%9D%E6%A1%A5%E6%9D%AF/MCU/%E7%9C%81%E8%B5%9B/</url>
       
         <content type="html"><![CDATA[]]></content>
       
